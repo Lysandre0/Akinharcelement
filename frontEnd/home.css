@@ -20,6 +20,7 @@ html, body {
 .boutonSelected {
     border-radius: 20px;
     background: linear-gradient(180deg, #FFEB9C 15.77%, #FFA800 100%);
+    cursor: pointer;
 }
 
 .boutonNotSelected {
@@ -105,9 +106,16 @@ footer {
 }
 
 .questionTable{
-    width: 100%;
+    width: 50%;
     height: 32vh;
-    margin: 8vh 0vh;
+    margin: 8vh auto;
+    
+}
+
+.aproposTable{
+    width: 40%;
+    height: 32vh;
+    margin: 8vh 0;
 }
 
 .boutonQuestion{
