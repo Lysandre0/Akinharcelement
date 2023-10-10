@@ -4,39 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="home.js"></script>
 </head>
 <body>
-    <header>
-        <div>
-            <img src="akinharcelement.png" alt="logo">
-            <div>
-                <button> Accueil </button>
-                <button> A propos </button>
-            </div>
+    <header class="flex space-between">
+        <img class="image" src="akinharcelement.png" alt="logo">
+        <div class="divButtonHeader">
+            <button class="boutonNotSelected boutonHeader"> Accueil </button>
+            <button class="boutonSelected boutonHeader"> A propos </button>
         </div>
     </header>
-   <table>
-    <tr>
-        <td></td>
-        <td>
-            <div>
-                <div> Question 1 </div>
-                <div>
-                    <div> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur inventore et itaque possimus temporibus quasi officia consectetur tempore reprehenderit expedita dolores saepe cumque ipsa doloribus exercitationem, iure nostrum, rem ut.</div>
-                    <div>
-                        <button> OUI </button>
-                        <button> NON </button>
+    <table class="questionTable">
+        <tr style="height: 100%;">
+            <td class="emptyCell"></td>
+            <td class="cell">
+                <div style="height: 100%;">
+                    <div class="questionTitle"> Question 1 </div>
+                    <div class="questionBody">
+                        <div class="questionText"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur inventore et itaque possimus temporibus quasi officia consectetur tempore reprehenderit expedita dolores saepe cumque ipsa doloribus exercitationem, iure nostrum, rem ut.</div>
+                        <div class="flex space-around divButtonQuestion">
+                            <button class="boutonSelected boutonQuestion"> OUI </button>
+                            <button class="boutonSelected boutonQuestion"> NON </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </td>
-        <td></td>
-    </tr>
-   </table>
+            </td>
+            <td class="emptyCell"></td>
+        </tr>
+    </table>
    <footer>
-        <div>
-            <div>Akinharcelement © Tous droits réservés</div>
-            <div>Plus d’informations : <a href="https://www.service-public.fr/particuliers/vosdroits/F1043#:~:text=Est%20assimil%C3%A9e%20au%20harc%C3%A8lement%20sexuel,faits%20ou%20d%27un%20tiers.">INFO.GOUV</a></div>
+        <div class="flex space-between">
+            <div class="footerText">Akinharcelement © Tous droits réservés</div>
+            <a href="https://www.service-public.fr/particuliers/vosdroits/F1043#:~:text=Est%20assimil%C3%A9e%20au%20harc%C3%A8lement%20sexuel,faits%20ou%20d%27un%20tiers." class="footerText">Plus d’informations : INFO.GOUV</a>
         </div>
    </footer>
 </body>
