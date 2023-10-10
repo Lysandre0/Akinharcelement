@@ -98,7 +98,10 @@ header {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 4vh 8vh;
+    padding: 4vh 8vh 12vh 8vh;
+    height:-webkit-fill-available;
+    align-items: center;
+    display: flex;
 }
 
 footer {
