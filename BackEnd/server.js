@@ -7,7 +7,7 @@ const port = 3000;
 // Configuration de la connexion à la base de données PostgreSQL
 const pool = new Pool({
   user: 'admin',
-  host: 'localhost:',
+  host: '172.168.1.120',
   database: 'WS_DB',
   password: 'password',
   port: 5432, // Port par défaut de PostgreSQL
@@ -16,7 +16,7 @@ const pool = new Pool({
 app.get('/answers', async (req, res) => {
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM answers');
+    const result = await client.query('SELECT * FROM akinharcelement.answers');
     const answers = result.rows;
     client.release();
     res.json(answers);
@@ -29,7 +29,7 @@ app.get('/answers', async (req, res) => {
 app.get('/questions', async (req, res) => {
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM questions');
+    const result = await client.query('SELECT * FROM akinharcelement.questions;');
     const questions = result.rows;
     client.release();
     res.json(questions);
@@ -43,7 +43,7 @@ app.get('/questions/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const query = 'SELECT * FROM questions WHERE id = $1';
+    const query = 'SELECT * FROM akinharcelement.questions; WHERE id = $1';
     const values = [id];
 
     const client = await pool.connect();
@@ -71,7 +71,7 @@ app.put('/answers/:id', async (req, res) => {
       return res.status(400).json({ message: 'Le type est requis.' });
     }
 
-    const query = 'UPDATE answers SET type = $1 WHERE id = $2';
+    const query = 'UPDATE akinharcelement.answers SET type = $1 WHERE id = $2';
     const values = [type, id];
 
     const client = await pool.connect();
@@ -93,7 +93,7 @@ app.post('/questions', async (req, res) => {
       return res.status(400).json({ message: 'Question et score sont requis.' });
     }
 
-    const query = 'INSERT INTO questions (question, type, score) VALUES ($1, $2, $3)';
+    const query = 'INSERT INTO akinharcelement.questions (question, type, score) VALUES ($1, $2, $3)';
     const values = [question, score];
 
     const client = await pool.connect();
@@ -104,6 +104,28 @@ app.post('/questions', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur lors de la création de la question.' });
+  }
+});
+
+app.use(express.json());
+
+app.post('/answers', async (req, res) => {
+  try {
+    const { type } = req.body; 
+    if (!type) {
+      return res.status(400).json({ message: 'Le type de réponse est requis.' });
+    }
+    const query = 'INSERT INTO answers (type) VALUES ($1)';
+    const values = [type];
+
+    const client = await pool.connect();
+    await client.query(query, values);
+    client.release();
+
+    res.status(201).json({ message: 'Réponse créée avec succès.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la création de la réponse.' });
   }
 });
 
