@@ -2,14 +2,14 @@ const express = require('express');
 const { Pool } = require('pg');
 
 const app = express();
-const port = 2000;
+const port = 3000;
 
 // Configuration de la connexion à la base de données PostgreSQL
 const pool = new Pool({
-  user: 'votre_utilisateur',
+  user: 'admin',
   host: 'localhost:',
-  database: 'mydb',
-  password: 'votre_mot_de_passe',
+  database: 'WS_DB',
+  password: 'password',
   port: 5432, // Port par défaut de PostgreSQL
 });
 
