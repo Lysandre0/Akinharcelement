@@ -12,11 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 nombreDeReponsesMax = resultats[type];
             }
         }
+        
         const questionTitle = document.querySelector(".questionTitle");
         const questionText = document.querySelector(".questionText");
 
         questionTitle.textContent = "Résultat";
-        questionText.innerHTML = `Selon vos réponses vous êtes témoin de <br>HARCELEMENT ${typeAvecLePlusDeReponses}<br><br>Cela représente  % des résultats`;
+        typeAvecLePlusDeReponses ? questionText.innerHTML = `Selon vos réponses vous êtes témoin de <br>HARCELEMENT ${typeAvecLePlusDeReponses}<br><br>Cela représente  % des résultats` : questionText.innerHTML = `Selon vos réponses vous n'êtes pas témoin de harcelement`
    } else {
         console.log("Aucun résultat n'a été transmis.");
     }
