@@ -151,6 +151,21 @@ app.post('/answers', async (req, res) => {
   }
 });
 
+app.get('/answerPercentage', async (req, res) => {
+  try {
+    // Effectue la requête SQL pour obtenir le pourcentage de types de réponses différents
+    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM answers) AS percentage FROM answers GROUP BY type;`;
+
+    const client = await pool.connect();
+    const result = await client.query(query);
+
+    res.json(result.rows);
+    client.release();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des pourcentages.' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
