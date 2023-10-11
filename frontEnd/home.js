@@ -35,7 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Gestionnaire d'événement pour le bouton "OUI"
     const buttonOui = document.querySelector(".boutonQuestion.oui");
     buttonOui.addEventListener("click", function () {
-        result[question.type] += question.score;
+        result[question.type] !== undefined ? result[question.type] += question.score : result[question.type] = question.score;
+        console.log(result);
+        console.log(typeof(question.score))
         currentQuestionIndex++;
         showCurrentQuestion();
     });
