@@ -1,14 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
+app.use(cors());
 const port = 3000;
 
 // Configuration de la connexion à la base de données PostgreSQL
 const pool = new Pool({
   user: 'admin',
-  host: '172.168.1.120',
-  database: 'WS_DB',
+  host: '172.16.1.120',
+  database: 'postgres',
   password: 'password',
   port: 5432, // Port par défaut de PostgreSQL
 });
@@ -115,7 +117,7 @@ app.post('/answers', async (req, res) => {
     if (!type) {
       return res.status(400).json({ message: 'Le type de réponse est requis.' });
     }
-    const query = 'INSERT INTO answers (type) VALUES ($1)';
+    const query = 'INSERT INTO akinharcelement.answers (type) VALUES ($1)';
     const values = [type];
 
     const client = await pool.connect();
@@ -137,7 +139,7 @@ app.post('/answers', async (req, res) => {
       return res.status(400).json({ message: 'Le type de réponse est requis.' });
     }
 
-    const query = 'INSERT INTO answers (type) VALUES ($1)';
+    const query = 'INSERT INTO akinharcelement.answers (type) VALUES ($1)';
     const values = [type];
 
     const client = await pool.connect();
@@ -154,7 +156,7 @@ app.post('/answers', async (req, res) => {
 app.get('/answerPercentage', async (req, res) => {
   try {
     // Effectue la requête SQL pour obtenir le pourcentage de types de réponses différents
-    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM answers) AS percentage FROM answers GROUP BY type;`;
+    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM answers GROUP BY type;`;
 
     const client = await pool.connect();
     const result = await client.query(query);

@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify(data) 
             };
-            const url = 'http://172.168.1.120:3000/answers';
+            const url = 'http://172.16.1.120:3000/answers';
             fetch(url, options)
                 .then(response => {
                     if (response.ok) {

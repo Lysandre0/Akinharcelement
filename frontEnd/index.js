@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let question = questions[currentQuestionIndex];
     // Fonction pour charger les questions depuis l'API
     function loadQuestions() {
-        fetch("http://172.168.1.120:3000/questions")
+        fetch("http://172.16.1.120:3000/questions")
             .then(response => response.json())
             .then(data => {
                 questions = data;
