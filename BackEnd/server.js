@@ -7,7 +7,7 @@ const port = 3000;
 // Configuration de la connexion à la base de données PostgreSQL
 const pool = new Pool({
   user: 'admin',
-  host: 'localhost:',
+  host: '172.168.1.120',
   database: 'WS_DB',
   password: 'password',
   port: 5432, // Port par défaut de PostgreSQL
