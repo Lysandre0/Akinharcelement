@@ -1,17 +1,23 @@
-// Récupérez les paramètres de requête de l'URL
-const urlParams = new URLSearchParams(window.location.search);
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("resultats")) {
+        const resultatsJSON = urlParams.get("resultats");
+        const resultats = JSON.parse(resultatsJSON);
+        let typeAvecLePlusDeReponses = "";
+        let nombreDeReponsesMax = 0;
 
-// Vérifiez si le paramètre "resultats" existe dans l'URL
-if (urlParams.has("resultats")) {
-    // Récupérez la valeur du paramètre "resultats"
-    const resultatsJSON = urlParams.get("resultats");
+        for (const type in resultats) {
+            if (resultats[type] > nombreDeReponsesMax) {
+                typeAvecLePlusDeReponses = type;
+                nombreDeReponsesMax = resultats[type];
+            }
+        }
+        const questionTitle = document.querySelector(".questionTitle");
+        const questionText = document.querySelector(".questionText");
 
-    // Convertissez la chaîne JSON en objet JavaScript
-    const resultats = JSON.parse(resultatsJSON);
-
-    // Maintenant, vous pouvez utiliser "resultats" sur la page "resultat.html"
-    console.log(resultats);
-} else {
-    // Le paramètre "resultats" n'a pas été fourni dans l'URL
-    console.log("Aucun résultat n'a été transmis.");
-}
+        questionTitle.textContent = "Résultat";
+        questionText.innerHTML = `Selon vos réponses vous êtes témoin de <br>HARCELEMENT ${typeAvecLePlusDeReponses}<br><br>Cela représente  % des résultats`;
+   } else {
+        console.log("Aucun résultat n'a été transmis.");
+    }
+});
