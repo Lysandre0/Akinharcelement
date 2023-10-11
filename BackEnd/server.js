@@ -107,6 +107,28 @@ app.post('/questions', async (req, res) => {
   }
 });
 
+app.use(express.json());
+
+app.post('/answers', async (req, res) => {
+  try {
+    const { type } = req.body; 
+    if (!type) {
+      return res.status(400).json({ message: 'Le type de réponse est requis.' });
+    }
+    const query = 'INSERT INTO answers (type) VALUES ($1)';
+    const values = [type];
+
+    const client = await pool.connect();
+    await client.query(query, values);
+    client.release();
+
+    res.status(201).json({ message: 'Réponse créée avec succès.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la création de la réponse.' });
+  }
+});
+
 app.post('/answers', async (req, res) => {
   try {
     const { type } = req.body;
