@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             questionTitle.textContent = "Question " + (currentQuestionIndex + 1);
             questionText.textContent = question.question;
         } else {
+            localStorage.setItem("postSent", "false");
             window.location.href = "resultat.html?resultats=" + encodeURIComponent(JSON.stringify(result));
         }
     }
