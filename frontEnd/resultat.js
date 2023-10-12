@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Vérifier si le POST a déjà été envoyé en utilisant le stockage local
     const postSent = localStorage.getItem("postSent") === "true";
 
     if (urlParams.has("resultats") && !postSent) {
@@ -22,8 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         questionTitle.textContent = "Résultat";
         if (typeAvecLePlusDeReponses) {
-            questionText.innerHTML = `Selon vos réponses vous êtes témoin de <br>HARCELEMENT ${typeAvecLePlusDeReponses.toUpperCase()}<br><br>Cela représente  % des résultats`;
-
+            let pourcentage = 0;
             const data = { type: typeAvecLePlusDeReponses };
             const options = {
                 method: 'POST',
@@ -32,8 +30,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify(data)
             };
-            const url = 'https://data.lysandrelebigot.com/answers';
-            fetch(url, options)
+            fetch('https://data.lysandrelebigot.com/answerPercentage', options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Échec de la requête POST');
+                    }
+                })
+                .then(data => {
+                    pourcentage = parseFloat(data.percentage).toFixed(2);
+                    questionText.innerHTML = `Selon vos réponses vous êtes témoin de <br>HARCELEMENT ${typeAvecLePlusDeReponses.toUpperCase()}<br><br>Cela représente ${pourcentage}% des résultats`;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            
+
+            fetch('https://data.lysandrelebigot.com/answers', options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
