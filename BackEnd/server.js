@@ -151,19 +151,19 @@ app.post('/answers', async (req, res) => {
   }
 });
 
-app.get('/answerPercentage', async (req, res) => {
+app.get('/answerPercentage/:type', async (req, res) => {
   try {
-    // Effectue la requête SQL pour obtenir le pourcentage de types de réponses différents
-    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM akinharcelement.answers GROUP BY type;`;
+    const { type } = req.params;
+    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM akinharcelement.answers WHERE type = $1;`;
 
     const client = await pool.connect();
-    const result = await client.query(query);
+    const result = await client.query(query, [type]);
 
     res.json(result.rows);
     client.release();
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erreur lors de la récupération des pourcentages.' });
+    res.status(500).json({ message: 'Erreur lors de la récupération du pourcentage.' });
   }
 });
 
