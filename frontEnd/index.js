@@ -5,19 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let question = questions[currentQuestionIndex];
     // Fonction pour charger les questions depuis l'API
     function loadQuestions() {
-        fetch("http://172.16.1.120:3000/questions")
+        fetch("https://data.lysandrelebigot.com/questions")
             .then(response => response.json())
             .then(data => {
-                questions = data;
+                questions = questions = data.slice().sort(() => Math.random() - 0.5);;
                 showCurrentQuestion();
             })
-            .catch(error => console.error("Erreur lors du chargement des questions : ", error));
-
-        questions.forEach(question => {
-            result[question.type] = 0;
-        });
+            .catch(error => console.error("Erreur lors du chargement des questions : ", error))
     }
 
+  
     // Fonction pour afficher la question actuelle
     function showCurrentQuestion() {
         if (currentQuestionIndex < questions.length) {
