@@ -151,15 +151,21 @@ app.post('/answers', async (req, res) => {
   }
 });
 
-app.get('/answerPercentage/:type', async (req, res) => {
+app.post('/answerPercentage', async (req, res) => {
   try {
-    const { type } = req.params;
-    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM akinharcelement.answers WHERE type = $1;`;
+    const { type } = req.body; 
+
+    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS akinharcelement.percentage FROM answers WHERE type = $1;`;
 
     const client = await pool.connect();
     const result = await client.query(query, [type]);
 
-    res.json(result.rows);
+    if (result.rows.length === 0) {
+      res.status(404).json({ message: 'Type de réponse non trouvé.' });
+    } else {
+      res.json(result.rows[0]);
+    }
+
     client.release();
   } catch (error) {
     console.error(error);
