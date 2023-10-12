@@ -9,6 +9,7 @@
     background: #e9ecef;
     color: #333;
     height: 99%;
+    overflow: hidden;
   }
   
   /* Header */
