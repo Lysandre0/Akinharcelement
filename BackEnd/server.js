@@ -157,7 +157,7 @@ app.post('/answerPercentage', async (req, res) => {
   try {
     const { type } = req.body; 
 
-    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM akinharcelement.answers WHERE type = $1;`;
+    const query = `SELECT type, (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM akinharcelement.answers) AS percentage FROM akinharcelement.answers WHERE type = $1 GROUP BY type;`;
 
     const client = await pool.connect();
     const result = await client.query(query, [type]);
