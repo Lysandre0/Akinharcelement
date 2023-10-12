@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("https://data.lysandrelebigot.com/questions")
             .then(response => response.json())
             .then(data => {
-                questions = questions = data.slice().sort(() => Math.random() - 0.5);;
+                questions = data.slice().sort(() => Math.random() - 0.5);;
                 showCurrentQuestion();
             })
             .catch(error => console.error("Erreur lors du chargement des questions : ", error))
